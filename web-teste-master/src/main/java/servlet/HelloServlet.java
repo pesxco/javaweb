@@ -17,9 +17,43 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nome = req.getParameter("nome");
+        resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        out.println(String.format("<h1>O nome do usuário é %s </h1>", nome));
+        String sopcao = req.getParameter("opcao");
+
+        if(sopcao.equals("Listar todos")){
+            req.getRequestDispatcher("listar.jsp").forward(req , resp);
+        }else if(sopcao.equals("Listar por id")){
+                out.print("<HTML>");
+                out.print("<body>");
+                out.println(String.format("<h1>listando por id<h1>"));
+                out.print("</body>");
+                out.println("</html>");
+        }else if(sopcao.equals("Listar por nome")){
+            out.print("<HTML>");
+            out.print("<body>");
+            out.println(String.format("<h1>listando por nome<h1>"));
+            out.print("</body>");
+            out.println("</html>");
+        }else if(sopcao.equals("Inserir registro")){
+            out.print("<HTML>");
+            out.print("<body>");
+            out.println(String.format("<h1>Inserindo registro<h1>"));
+            out.print("</body>");
+            out.println("</html>");
+        }else if(sopcao.equals("Editar registro")){
+            out.print("<HTML>");
+            out.print("<body>");
+            out.println(String.format("<h1>Editando registro<h1>"));
+            out.print("</body>");
+            out.println("</html>");
+        }else if(sopcao.equals("Excluir registro")){
+            out.print("<HTML>");
+            out.print("<body>");
+            out.println(String.format("<h1>Excluindo registro<h1>"));
+            out.print("</body>");
+            out.println("</html>");
+        }
     }
 
 }
