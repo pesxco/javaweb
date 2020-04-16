@@ -17,43 +17,19 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        String sopcao = req.getParameter("opcao");
-
-        if(sopcao.equals("Listar todos")){
-            req.getRequestDispatcher("listar.jsp").forward(req , resp);
-        }else if(sopcao.equals("Listar por id")){
-                out.print("<HTML>");
-                out.print("<body>");
-                out.println(String.format("<h1>listando por id<h1>"));
-                out.print("</body>");
-                out.println("</html>");
-        }else if(sopcao.equals("Listar por nome")){
-            out.print("<HTML>");
-            out.print("<body>");
-            out.println(String.format("<h1>listando por nome<h1>"));
-            out.print("</body>");
-            out.println("</html>");
-        }else if(sopcao.equals("Inserir registro")){
-            out.print("<HTML>");
-            out.print("<body>");
-            out.println(String.format("<h1>Inserindo registro<h1>"));
-            out.print("</body>");
-            out.println("</html>");
-        }else if(sopcao.equals("Editar registro")){
-            out.print("<HTML>");
-            out.print("<body>");
-            out.println(String.format("<h1>Editando registro<h1>"));
-            out.print("</body>");
-            out.println("</html>");
-        }else if(sopcao.equals("Excluir registro")){
-            out.print("<HTML>");
-            out.print("<body>");
-            out.println(String.format("<h1>Excluindo registro<h1>"));
-            out.print("</body>");
-            out.println("</html>");
-        }
+        out.println(String.format("<h1>Olá Mundo</h1>"));
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String nome = req.getParameter("nome");
+//        Contato contato = new Contato();
+//        contato.setNome("Maycon de Moraes");
+//        contato.setTelefone("32657845");
+//        contato.setCelular("98651278");
+//        contato.insere();
+        PrintWriter out = resp.getWriter();
+        out.println(String.format("<h1>O nome do usuário é %s </h1>", nome));
+    }
 }
