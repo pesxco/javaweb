@@ -103,6 +103,26 @@ public class Contato extends Entidade{
     /**
      * Contrutor sobrecarregado com nome, recupera os dados do banco para memoria
      */
+    public Contato(String nome) {
+        try {
+            Contato contatoBd = this.busca(nome);
+            if (contatoBd != null) {
+                setNome(contatoBd.getNome());
+                setId(contatoBd.getId());
+                setTelefone(contatoBd.getTelefone());
+                setTelefone2(contatoBd.getTelefone2());
+                setCelular(contatoBd.getCelular());
+                setCelular2(contatoBd.getCelular2());
+                setEmail(contatoBd.getEmail());
+                vdd = 1;
+            } else {
+                vdd = 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public List<Contato> busca() throws SQLException {
@@ -134,6 +154,28 @@ public class Contato extends Entidade{
             String sql = "SELECT * FROM contatos where id = ?;";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Contato c = new Contato();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setTelefone(rs.getString("telefone"));
+                c.setTelefone2(rs.getString("telefone2"));
+                c.setCelular(rs.getString("celular"));
+                c.setCelular2(rs.getString("celular2"));
+                c.setEmail(rs.getString("email"));
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public Contato busca(String nome) throws SQLException {
+        try (Connection conn = FabricaJDBC.criaConn()) {
+            String sql = "SELECT * FROM contatos where nome LIKE ?;";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, "%" + nome + "%");
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
@@ -203,4 +245,3 @@ public class Contato extends Entidade{
         }
     }
 }
-
